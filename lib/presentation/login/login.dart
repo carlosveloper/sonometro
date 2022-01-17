@@ -12,6 +12,7 @@ import 'package:miapp/presentation/commons/button/button_send.dart';
 import 'package:miapp/presentation/commons/button/input_label.dart';
 import 'package:miapp/presentation/commons/button/input_password.dart';
 import 'package:miapp/presentation/commons/label_go_login.dart';
+import 'package:miapp/presentation/register/registro.dart';
 import 'package:miapp/state/provider/login_provider.dart';
 
 class LoginPage extends ConsumerWidget {
@@ -146,7 +147,7 @@ class LoginPage extends ConsumerWidget {
       colorLabelIr: AppColors.secondColor,
       onPressed: () {
         FocusScope.of(context).requestFocus(FocusNode());
-        //RegisterPage.goRegisterPage(context);
+        RegistroPage.goRegistroPage(context);
       },
     );
   }
