@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "284481524626",
+    "firebase_url": "https://chat-2bfa6.firebaseio.com",
+    "project_id": "chat-2bfa6",
+    "storage_bucket": "chat-2bfa6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284481524626:android:3f9af745b94b0918b8274b",
+        "android_client_info": {
+          "package_name": "com.carlosveloper.miapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284481524626-bn9j52ev43qmmigrq2jadbef08bqc32u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjcJIq30A1Pq0H0M6LJfhH3GvOrBR1L1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284481524626-bn9j52ev43qmmigrq2jadbef08bqc32u.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "284481524626-jljqeg8g3bcpgbarspi8ttbmsoqc5gmg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.pruebafirebase"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
