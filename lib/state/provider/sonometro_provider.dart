@@ -20,12 +20,13 @@ class SonoMetrorovider extends ChangeNotifier {
       streamSubscription = FirebaseFirestore.instance
           .collection('Mqtt_Values_Sensores')
           .where('idsensor', isEqualTo: '61BD9E7C')
-          .orderBy('tiempo_lectura', descending: true)
+          .orderBy('tiempo_lectura', descending: false)
           .snapshots()
           .listen((snapshot) {
         listaSensor = getSensor(snapshot.docs);
         for (var x in listaSensor) {
           valoresSensor.add(double.parse(x.valorRuido.toString()));
+          notifyListeners();
         }
 //        valoresSensor.sort();
         notifyListeners();

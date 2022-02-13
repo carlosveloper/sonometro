@@ -42,6 +42,8 @@ dependencies:
   rxdart: ^0.27.3
   syncfusion_flutter_charts: ^19.4.42
   syncfusion_flutter_gauges: ^19.4.47
+  firebase_messaging: ^11.2.6
+  flutter_local_notifications: ^9.3.1
 
 dev_dependencies:
   flutter_lints: ^1.0.0

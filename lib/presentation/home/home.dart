@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:miapp/config/colors.dart';
 import 'package:miapp/config/style.dart';
 import 'package:miapp/presentation/home/widget/tab_bar.dart';
+import 'package:miapp/state/provider/PushNotificationService.dart';
 import 'package:miapp/state/provider/home_provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -31,6 +32,17 @@ class HomePage extends ConsumerStatefulWidget {
 
 class _HomePageState extends ConsumerState<HomePage> {
   late HomeProvider appHome;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    WidgetsBinding.instance!.addPostFrameCallback((_) async {
+      appHome.initNotificacion();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     appHome = ref.watch(homeChangeNotifierProvider);

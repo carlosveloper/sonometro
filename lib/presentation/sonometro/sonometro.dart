@@ -54,9 +54,12 @@ class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
                     maximum: 100,
                     pointers: <GaugePointer>[
                       NeedlePointer(
-                          value: sonoApp.valoresSensor.isEmpty
+                          value: sonoApp.listaSensor.isEmpty
                               ? 0
-                              : sonoApp.valoresSensor.first,
+                              : double.parse(sonoApp
+                                  .listaSensor[sonoApp.listaSensor.length - 1]
+                                  .valorRuido
+                                  .toString()),
                           needleLength: 0.8,
                           enableAnimation: true),
                     ],
@@ -90,10 +93,20 @@ class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
                       GaugeAnnotation(
                           widget: Container(
                               child: Text(
-                                  sonoApp.valoresSensor.isEmpty
+                                  sonoApp.listaSensor.isEmpty
                                       ? '0'
-                                      : sonoApp.valoresSensor.first.toString() +
-                                          'dB',
+                                      : sonoApp
+                                              .listaSensor[
+                                                  sonoApp.listaSensor.length -
+                                                      1]
+                                              .valorRuido
+                                              .toString() +
+                                          'dB \n' +
+                                          sonoApp
+                                              .listaSensor[
+                                                  sonoApp.listaSensor.length -
+                                                      1]
+                                              .tipoLectura,
                                   style: TextStyle(
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold))),
@@ -103,7 +116,7 @@ class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
                   ),
                 ],
                 title: GaugeTitle(
-                    text: 'Speedometer',
+                    text: 'Sonometro UG',
                     textStyle: TextStyle(
                         fontSize: 20.0, fontWeight: FontWeight.bold))),
             SizedBox(
@@ -136,10 +149,16 @@ class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
                           ] */
                         ,
                         xValueMapper: (SensorModel sales, _) =>
-                            DateFormat('HH:mm a').format(sales.tiempoLectura),
+                            DateFormat('HH:mm:ss a')
+                                .format(sales.tiempoLectura),
                         yValueMapper: (SensorModel sales, _) =>
                             double.parse(sales.valorRuido.toString()),
                         legendItemText: 'dd',
+                        /*   dataLabelMapper: (datum, index) {
+                          return datum.valorRuido.toString() +
+                              '\n' +
+                              datum.tipoLectura;
+                        }, */
                         // Render the data label
                         enableTooltip: true,
                         markerSettings: MarkerSettings(isVisible: true),
