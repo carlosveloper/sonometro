@@ -7,6 +7,8 @@ import 'package:miapp/presentation/login/login.dart';
 
 import 'app_main.dart';
 
+var userMail = '';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -16,6 +18,7 @@ Future<void> main() async {
   if (user != null) {
     isHome = true;
     print('tengo sesion activa');
+    userMail = user.email!;
   }
   runApp(ProviderScope(
       child: App(

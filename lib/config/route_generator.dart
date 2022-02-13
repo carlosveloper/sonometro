@@ -5,8 +5,8 @@ import 'package:miapp/presentation/register/registro.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    // print('ruta --->');
-    // print(settings.name);
+    print('ruta --->');
+    print(settings.name);
     var ruta = settings.name ?? '';
     switch (ruta) {
       case LoginPage.namePage:

@@ -146,13 +146,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_gauge:
-    dependency: "direct main"
-    description:
-      name: flutter_gauge
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.8"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -398,7 +391,14 @@ packages:
       name: syncfusion_flutter_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "19.4.42"
+    version: "19.4.47"
+  syncfusion_flutter_gauges:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_gauges
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "19.4.47"
   term_glyph:
     dependency: transitive
     description:

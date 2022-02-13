@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:miapp/core/utils/dialogs.dart';
+import 'package:miapp/main.dart';
 import 'package:miapp/presentation/home/home.dart';
 
 class LoginProvider extends ChangeNotifier {
@@ -25,6 +26,7 @@ class LoginProvider extends ChangeNotifier {
         );
         print('Hice login');
         dialog.dismiss();
+        userMail = email;
         HomePage.goHomePage(contextLogin);
       } on FirebaseAuthException catch (e) {
         String error = 'Error al iniciar sesión';

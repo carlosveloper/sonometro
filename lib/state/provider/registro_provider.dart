@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:miapp/core/utils/dialogs.dart';
+import 'package:miapp/main.dart';
 import 'package:miapp/model/user.dart';
 import 'package:miapp/presentation/home/home.dart';
 import 'package:miapp/state/bloc/register_user_bloc.dart';
@@ -32,6 +33,8 @@ class RegistroProvider extends ChangeNotifier {
       });
 
       dialog.dismiss();
+      userMail = blocRegister.email!;
+
       HomePage.goHomePage(contextRegistro);
     } on FirebaseAuthException catch (error) {
       dialog.dismiss();
