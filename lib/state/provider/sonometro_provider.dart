@@ -21,12 +21,12 @@ class SonoMetrorovider extends ChangeNotifier {
           .collection('Mqtt_Values_Sensores')
           .where('idsensor', isEqualTo: '61BD9E7C')
           .orderBy('tiempo_lectura', descending: false)
+          .limit(100)
           .snapshots()
           .listen((snapshot) {
         listaSensor = getSensor(snapshot.docs);
         for (var x in listaSensor) {
           valoresSensor.add(double.parse(x.valorRuido.toString()));
-          notifyListeners();
         }
 //        valoresSensor.sort();
         notifyListeners();
