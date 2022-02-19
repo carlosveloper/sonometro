@@ -13,7 +13,7 @@ class HomeProvider extends ChangeNotifier {
   bool _mounted = true;
   bool get mounted => _mounted;
 
-  List<String> listNamePage = ['Home', 'Historial Búsqueda', 'Perfil'];
+  List<String> listNamePage = ['Mi Dashboard', 'Perfil'];
 
   List<Widget> listPage = [SonoMetroPage(), MenuProfile()];
   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;

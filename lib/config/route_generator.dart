@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miapp/presentation/home/home.dart';
 import 'package:miapp/presentation/login/login.dart';
 import 'package:miapp/presentation/register/registro.dart';
+import 'package:miapp/presentation/table/table.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -20,6 +21,13 @@ class RouteGenerator {
       case RegistroPage.namePage:
         return MaterialPageRoute(
             builder: (_) => RegistroPage(), settings: settings);
+
+      case TablePage.namePage:
+        return MaterialPageRoute(
+            builder: (_) => TablePage(
+                  idSensor: settings.arguments! as String,
+                ),
+            settings: settings);
 
       default:
         // If there is no such named route in the switch statement, e.g. /third

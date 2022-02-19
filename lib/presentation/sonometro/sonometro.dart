@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:miapp/model/dispositivo.dart';
 import 'package:miapp/model/sensor.dart';
+import 'package:miapp/presentation/table/table.dart';
 import 'package:miapp/state/provider/sonometro_provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_gauges/gauges.dart';
@@ -25,7 +27,7 @@ class SonoMetroPage extends ConsumerStatefulWidget {
 
 class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
   late SonoMetrorovider sonoApp;
-
+  Dispositivo? value;
   @override
   void initState() {
     // TODO: implement initState
@@ -35,6 +37,8 @@ class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
   @override
   void dispose() {
     if (sonoApp.inicie) sonoApp.streamSubscription.cancel();
+    if (sonoApp.inicie2) sonoApp.streamSubscription2.cancel();
+
     super.dispose();
   }
 
@@ -42,38 +46,55 @@ class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
   Widget build(BuildContext context) {
     sonoApp = ref.watch(sonoMetroChangeNotifierProvider);
     sonoApp.listen();
+    sonoApp.listenDispositivos();
     return Scaffold(
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            StreamBuilder<QuerySnapshot>(
-              stream:
-                  FirebaseFirestore.instance.collection('Sensores').snapshots(),
-              builder: (context, snapshot) {
-                var list = <QueryDocumentSnapshot>[];
-
-                if (snapshot.hasData) {
-                  list = snapshot.data!.docs;
-                }
-                return snapshot.hasData
-                    ? DropdownButton(
-                        onChanged: (value) {},
-                        items: [
+            GestureDetector(
+              child: Icon(
+                Icons.table_chart_outlined,
+                size: 40,
+              ),
+              onTap: () {
+                Navigator.of(context)
+                    .pushNamed(TablePage.namePage, arguments: sonoApp.idSensor);
+              },
+            ),
+            sonoApp.listaDispositivo.isNotEmpty
+                ? DropdownButton<Dispositivo>(
+                    onChanged: (select) {
+                      if (select != null) {
+                        sonoApp.disposeSuscription();
+                        value = select;
+                        sonoApp.idSensor = value!.idsensor;
+                        setState(() {});
+                      }
+                    },
+                    /*  items: [
                           for (var child in list)
                             DropdownMenuItem(
                               child: Text(
                                 (child.data()
                                     as Map<String, dynamic>)['nombresensor'],
                               ),
-                              value: child,
+                              value: Dispositivo.fromMap(
+                                  (child.data() as Map<String, dynamic>)),
                             ),
                         ],
-                      )
-                    : Container();
-              },
-            ),
+ */
+                    items: sonoApp.listaDispositivo
+                        .map<DropdownMenuItem<Dispositivo>>((value) {
+                      return DropdownMenuItem<Dispositivo>(
+                        value: value,
+                        child: Text(value.nombresensor),
+                      );
+                    }).toList(),
+                    value: value,
+                  )
+                : Container(),
             SfRadialGauge(
                 axes: [
                   RadialAxis(
@@ -119,7 +140,10 @@ class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
                     annotations: <GaugeAnnotation>[
                       GaugeAnnotation(
                           widget: Container(
-                              child: Text(
+                              child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Text(
                                   sonoApp.listaSensor.isEmpty
                                       ? '0'
                                       : sonoApp
@@ -134,9 +158,26 @@ class _SonoMetroPageState extends ConsumerState<SonoMetroPage> {
                                                   sonoApp.listaSensor.length -
                                                       1]
                                               .tipoLectura,
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold))),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
+                              Text(
+                                  sonoApp.listaSensor.isNotEmpty
+                                      ? DateFormat('dd-MM-yyyy HH:mm:ss a')
+                                          .format(
+                                          sonoApp
+                                              .listaSensor[
+                                                  sonoApp.listaSensor.length -
+                                                      1]
+                                              .tiempoLectura,
+                                        )
+                                      : '',
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold))
+                            ],
+                          )),
                           angle: 90,
                           positionFactor: 0.5)
                     ],

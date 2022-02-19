@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:miapp/presentation/home/home.dart';
 import 'package:miapp/presentation/login/login.dart';
+import 'package:miapp/presentation/table/table.dart';
 
 import 'app_main.dart';
 
